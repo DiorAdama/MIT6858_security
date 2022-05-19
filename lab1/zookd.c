@@ -60,6 +60,13 @@ int main(int argc, char **argv)
 
 static void process_client(int fd)
 {
+    // val(ebp+4) (return address) = 08048ec6
+    /* ebp = 0xbffff618 */
+    /* 2060 bytes */
+    /* &reqpath = 0xbfffee08 */
+    /* ... 40 bytes */
+    /* esp = 0xbfffede0 */
+
     static char env[8192];  /* static variables are not on the stack */
     static size_t env_len;
     char reqpath[2048];
