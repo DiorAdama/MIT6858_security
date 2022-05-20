@@ -3,12 +3,6 @@
 # desc
 #
 
-[zookd.c:39]
-url pattern can't exceed 1024 bytes. code writes on url at :
-[zookd.c:40] --> recvfd(fd, url, sizeof(url), &svcfds[i])
-url patterns come from :
-[zook.conf]
-
 
 [zookd.c:65]
 reqpath cannot exceed 2048 bytes. code writes on reqpath at
