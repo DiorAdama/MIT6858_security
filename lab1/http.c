@@ -63,7 +63,7 @@ int http_read_line(int fd, char *buf, size_t size)
 
 const char *http_request_line(int fd, char *reqpath, char *env, size_t *env_len)
 {
-    static char buf[8192];      /* static variables are not on the stack */
+    static char buf[8192];      /* static variables are not on the stack */ 
     char *sp1, *sp2, *qp, *envp = env;
 
     /* For lab 2: don't remove this line. */
