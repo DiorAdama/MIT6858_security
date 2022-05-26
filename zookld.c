@@ -13,7 +13,7 @@
 #include <signal.h>
 #include <string.h>
 #include "http.h"
-
+ 
 #define ZOOK_CONF    "zook.conf"
 #define MAX_SERVICES 256
 #define MAX_GIDS     256
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
         if (!url)
             url = ".*";
         sendfd(svcfds[0], url, strlen(url) + 1, svcfds[i]);
-        close(svcfds[i]);
+        close(svcfds[i]);  
     }
     close(svcfds[0]);
 
@@ -94,7 +94,7 @@ int main(int argc, char **argv)
     /* wait for zookd */
     waitpid(disppid, &status, 0);
 }
-
+ 
 /* launch a service */
 pid_t launch_svc(CONF *conf, const char *name)
 {
