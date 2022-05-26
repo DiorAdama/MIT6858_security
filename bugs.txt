@@ -1,0 +1,17 @@
+#
+# [file:#lines] 
+# desc
+#
+
+
+[zookd.c:65]
+reqpath cannot exceed 2048 bytes. code writes on reqpath at
+[http.c:105] --> url_decode(reqpath, sp1)
+to overflow : write a url larger than 2048 bytes
+
+[http.c:276]
+pn can't exceed 1024 bytes. code writes on pn at:
+[http.c:279] --> getcwd(pn, sizeof(pn));
+[http.c:282] --> strcat(pn, name); 
+to overflow : write a url between 1024 and 2048 bytes
+
