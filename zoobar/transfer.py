@@ -6,7 +6,7 @@ from debug import *
 import bank
 import traceback
 
-@catch_err
+@catch_err 
 @requirelogin
 def transfer():
     warning = None

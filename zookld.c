@@ -108,7 +108,7 @@ pid_t launch_svc(CONF *conf, const char *name)
         warnx("Launching service %d: %s", nsvcs, name);
     else
         warnx("Launching %s", name);
-
+    
     if (!(cmd = NCONF_get_string(conf, name, "cmd")))
         errx(1, "`cmd' missing in [%s]", name);
 
@@ -168,6 +168,7 @@ pid_t launch_svc(CONF *conf, const char *name)
     if ((dir = NCONF_get_string(conf, name, "dir")))
     {
         /* chroot into dir */
+        chroot(path);
     }
 
     signal(SIGCHLD, SIG_DFL);

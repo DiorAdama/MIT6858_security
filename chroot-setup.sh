@@ -12,7 +12,7 @@ create_socket_dir() {
     mkdir -p $dirname
     chown $ownergroup $dirname
     chmod $perms $dirname
-}
+} 
 
 set_perms() {
     local ownergroup="$1"

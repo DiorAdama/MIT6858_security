@@ -18,7 +18,7 @@ def transfer(sender, recipient, zoobars):
     recipientp.zoobars = recipient_balance
     persondb.commit()
 
-    transfer = Transfer()
+    transfer = Transfer() 
     transfer.sender = sender
     transfer.recipient = recipient
     transfer.amount = zoobars
