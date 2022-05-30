@@ -23,8 +23,12 @@ b = z3.BitVec('b', 32)
 u_avg = z3.UDiv(a, 2) + z3.UDiv(b, 2) + z3.UDiv(z3.URem(a,2)+z3.URem(b,2), 2)
 
 s_avg = (a + b) / 2
-if (a<0 and b<0) or (a>0 and b>0):
+if (a>0 and b>0):
     s_avg = a/2 + b/2 + (a%2 + b%2)/2 
+elif (a<0 and b<0):
+    a_ = -a
+    b_ = -b
+    s_avg = - (a_/2 + b_/2 + (a_%2 + b_%2)/2)
 else:
     s_avg = (a+b)/2
 ## Do not change the code below.
