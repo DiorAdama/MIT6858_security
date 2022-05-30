@@ -22,7 +22,7 @@ b = z3.BitVec('b', 32)
 ## Use z3.LShR(x, y) for unsigned (logical) right shift of x by y bits.
 u_avg = z3.UDiv(a, 2) + z3.UDiv(b, 2) + z3.UDiv(z3.URem(a,2)+z3.URem(b,2), 2)
 
-s_avg = z3.If(a^b < 0, (a+b)/2, z3.If(a > zero, a/2 + b/2 + (a%2 + b%2)/2, a/2 + b/2 -(a%2 + b%2)/2))
+s_avg = z3.If(a^b < 0, (a+b)/2, z3.If(a > 0, a/2 + b/2 + (a%2 + b%2)/2, a/2 + b/2 -(a%2 + b%2)/2))
     
 ## Do not change the code below.
 
