@@ -9,7 +9,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define MAX_SERVICES 256
+#define MAX_SERVICES 256 
 static int nsvcs;
 static int svcfds[MAX_SERVICES];
 static regex_t svcurls[MAX_SERVICES];
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
         char url[1024], regexp[1024];
         if (recvfd(fd, url, sizeof(url), &svcfds[i]) <= 0)
             err(1, "recvfd svc %d", i + 1);
-	/* parens are necessary here so that regexes like a|b get
+	/* parens are necessary here so that regexes like a|b get 
 	   parsed properly and not as (^a)|(b$) */
         snprintf(regexp, sizeof(regexp), "^(%s)$", url);
         if (regcomp(&svcurls[i], regexp, REG_EXTENDED | REG_NOSUB))
@@ -70,6 +70,13 @@ int main(int argc, char **argv)
 
 static void process_client(int fd)
 {
+    // val(ebp+4) (return address) = 08048ec6
+    /* ebp = 0xbffff618 */
+    /* 2060 bytes */
+    /* &reqpath = 0xbfffee08 */
+    /* ... 40 bytes */
+    /* esp = 0xbfffede0 */
+
     static char env[8192];  /* static variables are not on the stack */
     static size_t env_len;
     char reqpath[2048];

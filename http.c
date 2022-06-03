@@ -24,7 +24,7 @@ void touch(const char *name) {
 
     int fd = open(pn, O_RDWR | O_CREAT | O_NOFOLLOW, 0666);
     if (fd >= 0)
-        close(fd);
+        close(fd); 
 }
 
 int http_read_line(int fd, char *buf, size_t size)
@@ -63,7 +63,7 @@ int http_read_line(int fd, char *buf, size_t size)
 
 const char *http_request_line(int fd, char *reqpath, char *env, size_t *env_len)
 {
-    static char buf[8192];      /* static variables are not on the stack */
+    static char buf[8192];      /* static variables are not on the stack */ 
     char *sp1, *sp2, *qp, *envp = env;
 
     /* For lab 2: don't remove this line. */
@@ -192,7 +192,7 @@ void http_err(int fd, int code, char *fmt, ...)
     free(msg);
 }
 
-/* split path into script name and path info */
+/* split path into script name and path info */ 
 void split_path(char *pn)
 {
     struct stat st;
@@ -274,16 +274,16 @@ void http_serve(int fd, const char *name)
 {
     void (*handler)(int, const char *) = http_serve_none;
     char pn[1024];
-    struct stat st;
+    struct stat st; 
 
     getcwd(pn, sizeof(pn));
-    setenv("DOCUMENT_ROOT", pn, 1);
+    setenv("DOCUMENT_ROOT", pn, 1); 
 
     strcat(pn, name);
     split_path(pn);
 
     if (!stat(pn, &st))
-    {
+    { 
         /* executable bits -- run as CGI script */
         if (valid_cgi_script(&st))
             handler = http_serve_executable;
@@ -292,7 +292,7 @@ void http_serve(int fd, const char *name)
         else
             handler = http_serve_file;
     }
-
+ 
     handler(fd, pn);
 }
 
