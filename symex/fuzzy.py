@@ -535,9 +535,18 @@ class concolic_str(str):
     res = o + self.__v
     return concolic_str(sym_concat(ast(o), ast(self)), res)
 
+  
   ## Exercise 4: your code here.
   ## Implement symbolic versions of string length (override __len__)
   ## and contains (override __contains__).
+
+  def __len__(self):
+    res = len(self.__v)
+    return concolic_int(sym_length(ast(self)), res)
+
+  def __contains__(self, o):
+    res = self.__v.contains(o)
+    return concolic_bool(sym_contains(ast(self), ast(o)), res)
 
   def startswith(self, o):
     res = self.__v.startswith(o)
@@ -701,14 +710,14 @@ def concolic_test(testfunc, maxiter = 100, verbose = 0):
       neg_ast_constr = sym_not(cur_path_constr[i])
       if i>0:
         neg_ast_constr = sym_and(neg_ast_constr, *cur_path_constr[:i])
-        
+
       if neg_ast_constr in checked:
         continue
       else:
         checked.add(neg_ast_constr)
 
       (ok, model) = fork_and_check(neg_ast_constr)
-      new_values = copy(concrete_values)
+      new_values = concrete_values.copy()
       for key in model:
         new_values[key] = model[key]
       if ok == z3.sat:
