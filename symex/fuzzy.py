@@ -697,6 +697,23 @@ def concolic_test(testfunc, maxiter = 100, verbose = 0):
     ## for each branch, invoke Z3 to find an input that would go
     ## the other way, and add it to the list of inputs to explore.
 
+    for i in range(len(cur_path_constr)):
+      neg_ast_constr = sym_not(cur_path_constr[i])
+      if i>0:
+        neg_ast_constr = sym_and(neg_ast_constr, *cur_path_constr[:i])
+        
+      if neg_ast_constr in checked:
+        continue
+      else:
+        checked.add(neg_ast_constr)
+
+      (ok, model) = fork_and_check(neg_ast_constr)
+      new_values = copy(concrete_values)
+      for key in model:
+        new_values[key] = model[key]
+      if ok == z3.sat:
+        inputs.add(new_values, cur_path_constr_callers[i])
+
     ## Exercise 3: your code here.
     ##
     ## Here's a possible plan of attack:
