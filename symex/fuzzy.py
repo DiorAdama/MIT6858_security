@@ -545,7 +545,7 @@ class concolic_str(str):
     return concolic_int(sym_length(ast(self)), res)
 
   def __contains__(self, o):
-    res = self.__v.contains(o)
+    res = o in self.__v
     return concolic_bool(sym_contains(ast(self), ast(o)), res)
 
   def startswith(self, o):
