@@ -87,7 +87,7 @@ def test_stuff():
   i = 0
   for p in pdb.query(zoobar.zoodb.Person).all():
     if not p.username in environ['HTTP_COOKIE'] and p.zoobars < balances1[i]:
-      report_zoobar_theft
+      report_zoobar_theft()
     i+=1
 
   ## Detect zoobar theft.
