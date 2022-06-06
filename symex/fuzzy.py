@@ -717,10 +717,10 @@ def concolic_test(testfunc, maxiter = 100, verbose = 0):
         checked.add(neg_ast_constr)
 
       (ok, model) = fork_and_check(neg_ast_constr)
-      new_values = concrete_values.copy()
-      for key in model:
-        new_values[key] = model[key]
       if ok == z3.sat:
+        new_values = concrete_values.copy()
+        for key in model:
+          new_values[key] = model[key]
         inputs.add(new_values, cur_path_constr_callers[i])
 
     ## Exercise 3: your code here.
