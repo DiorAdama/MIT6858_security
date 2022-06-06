@@ -13,6 +13,8 @@ def transfer():
     try:
         if 'recipient' in request.form:
             zoobars = symint(request.form['zoobars'])
+            if zoobars < 0: 
+                raise ValueError("Cannot Send negative zoobars")
             bank.transfer(g.user.person.username,
                           request.form['recipient'], zoobars)
             warning = "Sent %d zoobars" % zoobars

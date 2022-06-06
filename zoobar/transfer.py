@@ -21,3 +21,4 @@ def transfer():
         warning = "Transfer to %s failed" % request.form['recipient']
 
     return render_template('transfer.html', warning=warning)
+ 
