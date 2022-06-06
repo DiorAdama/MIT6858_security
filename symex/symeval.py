@@ -33,7 +33,7 @@ def myeval(expr, globals = None, locals = None):
       globals = frame.f_back.f_globals
     finally:
       del frame
-
+ 
   ## Try to evaluate the expression as an integer
   v = str_to_small_int(expr)
   if v is not None:

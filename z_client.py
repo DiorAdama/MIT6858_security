@@ -67,7 +67,7 @@ def transfer(sender_cookies, recipient, zoobars):
     p = "recipient=%s&zoobars=%s&submission=Send" % (recipient, str(zoobars))
     return post("http://localhost:8080/zoobar/index.cgi/transfer",
                 sender_cookies, p)
-
+ 
 def view_user(cookies, username):
     return get("http://localhost:8080/zoobar/index.cgi/users?user=" + username, cookies)
 

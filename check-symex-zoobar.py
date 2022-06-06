@@ -36,7 +36,8 @@ def test_stuff():
   pdb.query(zoobar.zoodb.Person).delete()
   adduser(pdb, 'alice', 'atok')
   adduser(pdb, 'bob', 'btok')
-  balance1 = sum([p.zoobars for p in pdb.query(zoobar.zoodb.Person).all()])
+  balances1 = [p.zoobars for p in pdb.query(zoobar.zoodb.Person).all()]
+  balance1 = sum(balances1)
   pdb.commit()
 
   tdb = zoobar.zoodb.transfer_setup()
@@ -51,7 +52,7 @@ def test_stuff():
   environ['SCRIPT_NAME'] = 'script'
   environ['QUERY_STRING'] = 'query'
   environ['HTTP_REFERER'] = fuzzy.mk_str('referrer')
-  environ['HTTP_COOKIE'] = fuzzy.mk_str('cookie')
+  environ['HTTP_COOKIE'] = fuzzy.mk_str('cookie') 
 
   ## In two cases, we over-restrict the inputs in order to reduce the
   ## number of paths that "make check" explores, so that it finishes
@@ -74,11 +75,20 @@ def test_stuff():
   if verbose:
     for x in resp:
       print x
-
+ 
   ## Exercise 6: your code here.
-
+  
   ## Detect balance mismatch.
   ## When detected, call report_balance_mismatch()
+  balance2 = sum([p.zoobars for p in pdb.query(zoobar.zoodb.Person).all()])
+  if (balance2 != balance1): #The request is contrained to be a transaction so no new user
+    report_balance_mismatch()
+  
+  i = 0
+  for p in pdb.query(zoobar.zoodb.Person).all():
+    if not p.username in environ['HTTP_COOKIE'] and p.zoobars < balances1[i]:
+      report_zoobar_theft
+    i+=1
 
   ## Detect zoobar theft.
   ## When detected, call report_zoobar_theft()
